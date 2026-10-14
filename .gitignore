@@ -1,0 +1,31 @@
+# Credentials and secrets
+.env
+.env.*
+*.pem
+*.key
+*credentials*.json
+*service-account*.json
+
+# Patient data and database backups
+*.db
+*.sqlite
+*.sqlite3
+*.csv
+*.csv.gz
+*.sql.gz
+*.bak
+
+# Python temporary files
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Generated ML artifacts
+*.joblib
+backend/app/ml/artifacts/metrics.json
+
+# Local temporary files
+*.log
+.DS_Store

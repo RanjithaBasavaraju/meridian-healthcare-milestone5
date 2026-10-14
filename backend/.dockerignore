@@ -1,0 +1,17 @@
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+*.csv
+*.bak
+*.pem
+*.key
+*.json
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Include the model metrics needed at startup
+!app/ml/artifacts/metrics.json

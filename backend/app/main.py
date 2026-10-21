@@ -3,7 +3,10 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .database import init_db
+from fastapi import HTTPException
+from sqlalchemy import text
+
+from .database import init_db, engine
 from .ml.predictor import get_predictor
 from .routers import dashboard, jobs, predict, upload
 
@@ -57,3 +60,24 @@ def root():
         "message": "Healthcare Cost Prediction API is running.",
         "docs": "/docs",
     }
+@app.get("/health/live")
+def liveness():
+    return {"status": "alive"}
+
+
+@app.get("/health/ready")
+def readiness():
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+
+        return {
+            "status": "ready",
+            "database": "connected"
+        }
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Database connection unavailable"
+        )

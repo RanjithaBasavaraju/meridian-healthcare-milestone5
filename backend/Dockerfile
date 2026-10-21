@@ -11,7 +11,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 
-RUN useradd --create-home --uid 10001 appuser
+RUN useradd --create-home --uid 10001 appuser \
+    && mkdir -p /code/app/ml/artifacts \
+    && chown -R appuser:appuser /code/app/ml/artifacts
+
 USER appuser
 
 EXPOSE 8000

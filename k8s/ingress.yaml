@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: healthcare-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "healthcare-gke-ip"
+    networking.gke.io/managed-certificates: "healthcare-ssl-cert"
+    networking.gke.io/v1beta1.FrontendConfig: "healthcare-frontend-config"
+spec:
+  rules:
+    - host: 136-82-140-56.sslip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: healthcare-web-service
+                port:
+                  number: 80

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthcare-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: healthcare-web
+  template:
+    metadata:
+      labels:
+        app: healthcare-web
+    spec:
+      containers:
+        - name: healthcare-web
+          image: us-central1-docker.pkg.dev/meridian-healthcare-cost/my-docker-repo/healthcare-web:v1
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthcare-web-service
+spec:
+  type: ClusterIP
+  selector:
+    app: healthcare-web
+  ports:
+    - port: 80
+      targetPort: 80

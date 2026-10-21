@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: healthcare-ssl-cert
+spec:
+  domains:
+    - 136-82-140-56.sslip.io
